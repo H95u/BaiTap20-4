@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class StudentManage implements ManageInterface<Student> {
     private ArrayList<Student> students;
@@ -10,8 +7,10 @@ public class StudentManage implements ManageInterface<Student> {
     private Scanner scanner;
     private static double countCheckAge = 0;
     private static double countCheckAvgPoint = 0;
+    protected ClassroomManage classroomManage;
 
     public StudentManage() {
+        classroomManage = new ClassroomManage();
         students = new ArrayList<>();
         genders = new TreeMap<>();
         genders.put(1, "Nam");
@@ -43,10 +42,10 @@ public class StudentManage implements ManageInterface<Student> {
         int choice = Integer.parseInt(scanner.nextLine());
         String gender = getGender(choice);
         System.out.println("Nhập vào lớp");
-        ClassroomManage.displayAllClass();
+        classroomManage.displayAllClass();
         System.out.println("Nhập vào lựa chọn");
         int id = Integer.parseInt(scanner.nextLine());
-        Classroom classroom = ClassroomManage.getClassroom(id);
+        Classroom classroom = classroomManage.getClassroom(id);
         return new Student(name, age, gender, avgPoint, classroom);
     }
 
@@ -75,10 +74,10 @@ public class StudentManage implements ManageInterface<Student> {
             int choice = Integer.parseInt(scanner.nextLine());
             String gender = getGender(choice);
             System.out.println("Nhập vào lớp");
-            ClassroomManage.displayAllClass();
+            classroomManage.displayAllClass();
             System.out.println("Nhập vào lựa chọn");
             int id = Integer.parseInt(scanner.nextLine());
-            Classroom classroom = ClassroomManage.getClassroom(id);
+            Classroom classroom = classroomManage.getClassroom(id);
             student.setName(name);
             student.setAge(age);
             student.setAvgPoint(avgPoint);
@@ -195,9 +194,9 @@ public class StudentManage implements ManageInterface<Student> {
 
     public void displayByClassroom() {
         System.out.println("Nhập vào lớp");
-        ClassroomManage.displayAllClass();
+        classroomManage.displayAllClass();
         int choice = Integer.parseInt(scanner.nextLine());
-        Classroom classroom = ClassroomManage.getClassroom(choice);
+        Classroom classroom = classroomManage.getClassroom(choice);
         if (classroom != null) {
             for (Student student : students) {
                 if (student.getClassroom() == classroom) {
@@ -217,5 +216,20 @@ public class StudentManage implements ManageInterface<Student> {
     public boolean checkAge(int age) {
         countCheckAge++;
         return age >= 6 && age <= 60;
+    }
+
+    public void deleteClassroomAndStudents() {
+        classroomManage.displayAllClass();
+        System.out.println("Mời nhập vào id");
+        int id = Integer.parseInt(scanner.nextLine());
+        Classroom classroom = classroomManage.getClassroom(id);
+        if (classroom != null) {
+            for (int i = 0; i < students.size(); i++) {
+                if (students.get(i).getClassroom() == classroom) students.remove(students.get(i));
+            }
+            classroomManage.deleteClassroom(classroom);
+        } else {
+            System.out.println("Không có id bạn vừa nhập");
+        }
     }
 }

@@ -70,23 +70,24 @@ public class MySystem {
                         myChoice = Integer.parseInt(scanner.nextLine());
                         switch (myChoice) {
                             case 1:
-                                ClassroomManage.addNewClassroom();
+                                studentManage.classroomManage.addNewClassroom();
                                 break;
                             case 2:
-                                ClassroomManage.editClassroom();
-                                ClassroomManage.displayAllClass();
+                                studentManage.classroomManage.editClassroom();
+                                studentManage.classroomManage.displayAllClass();
                                 break;
                             case 3:
-                                ClassroomManage.deleteClassroom();
-                                ClassroomManage.displayAllClass();
+                                studentManage.deleteClassroomAndStudents();
+                                studentManage.classroomManage.displayAllClass();
+                                studentManage.displayAll();
                                 break;
                             case 4:
                                 System.out.println("Mời nhập vào id");
                                 int id = Integer.parseInt(scanner.nextLine());
-                                System.out.println(ClassroomManage.getClassroom(id));
+                                System.out.println(studentManage.classroomManage.getClassroom(id));
                                 break;
                             case 5:
-                                ClassroomManage.displayAllClass();
+                                studentManage.classroomManage.displayAllClass();
                                 break;
                         }
                     } while (myChoice != 0);
