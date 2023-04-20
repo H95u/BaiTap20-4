@@ -1,11 +1,15 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ClassroomManage {
-    private ArrayList<Classroom> classrooms = new ArrayList<>();
+    private ArrayList<Classroom> classrooms;
     private Scanner scanner = new Scanner(System.in);
 
     public ClassroomManage() {
+        classrooms = new ArrayList<>();
+        classrooms.add(new Classroom("Lớp 1"));
+        classrooms.add(new Classroom("Lớp 2"));
     }
 
     public void displayAllClass() {
